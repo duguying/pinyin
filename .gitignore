@@ -1,0 +1,11 @@
+# idea
+/.idea/
+*.iml
+
+# output
+/out/
+/target/
+
+# mac
+.DS_Store
+
