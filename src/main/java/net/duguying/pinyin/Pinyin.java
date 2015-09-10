@@ -1,5 +1,7 @@
 package net.duguying.pinyin;
 
+import com.sun.deploy.util.StringUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -11,8 +13,9 @@ import java.util.Map;
 public class Pinyin {
     private String charsContent = "";
     private String wordsContent = "";
-    private Map<String,String> charsDict = new HashMap<String,String>();
     private Map<String,String> wordsDict = new HashMap<String,String>();
+
+    private int WORD_MAX_LEN = 10;
 
     public Pinyin(){
         try {
@@ -46,7 +49,7 @@ public class Pinyin {
         String[] charsArr = this.charsContent.split("\n");
         for (String charStr:charsArr){
             String[] charEle = charStr.split(",");
-            this.charsDict.put(charEle[0].trim(),charEle[1].trim());
+            this.wordsDict.put(charEle[0].trim(),charEle[1].trim());
         }
     }
 
@@ -62,5 +65,49 @@ public class Pinyin {
 
             this.wordsDict.put(wordEle[0].trim(), pinyin.trim());
         }
+    }
+
+    public String translate(String content){
+        String result = "";
+
+        int len = 0;
+        int tailStartIdx = 0;
+        int tailEndIdx = 0;
+        int leftEndIdx = 0;
+        String tail = "";
+        String left = content;
+
+        for (;left.length() > 0;) {
+            // outer
+            if(tail.length() == 0){
+                len = left.length();
+                int cutLen = (len > this.WORD_MAX_LEN) ? this.WORD_MAX_LEN : len;
+                tailStartIdx = len - cutLen;
+                tailEndIdx = len;
+                leftEndIdx = tailStartIdx;
+                tail = content.substring(tailStartIdx, tailEndIdx);
+                left = content.substring(0, leftEndIdx);
+            }
+
+            for (; tail.length() > 1; ) {
+                String value = this.wordsDict.get(tail);
+                if (value != null && !value.equals("")) {
+                    result = value + result;
+                    tail = "";
+                    break;
+                } else {
+                    left = left + tail.charAt(0);
+                    tail = tail.substring(1, tail.length());
+                }
+            }
+            if (tail.length() > 0){
+                String value = this.wordsDict.get(tail);
+                value = (value != null) ? value : tail;
+                result = value + result;
+                tail = "";
+            }
+        }
+
+        return result;
     }
 }
