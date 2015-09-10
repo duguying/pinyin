@@ -1,7 +1,5 @@
 package net.duguying.pinyin;
 
-import com.sun.deploy.util.StringUtils;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
