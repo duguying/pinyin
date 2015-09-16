@@ -14,6 +14,8 @@ public class Pinyin {
     private Map<String,String> wordsDict = new HashMap<String,String>();
 
     private int WORD_MAX_LEN = 10;
+    private char SEP = ',';
+    private char REP = 7;
 
     public Pinyin(){
         try {
@@ -47,7 +49,7 @@ public class Pinyin {
         String[] charsArr = this.charsContent.split("\n");
         for (String charStr:charsArr){
             String[] charEle = charStr.split(",");
-            this.wordsDict.put(charEle[0].trim(),charEle[1].trim());
+            this.wordsDict.put(charEle[0].trim(), SEP + charEle[1].trim());
         }
     }
 
@@ -58,14 +60,16 @@ public class Pinyin {
             String pinyin = "";
 
             for (int i = 1; i < wordEle.length; i++){
-                pinyin = pinyin + wordEle[i];
+                pinyin = pinyin + SEP + wordEle[i];
             }
 
             this.wordsDict.put(wordEle[0].trim(), pinyin.trim());
         }
     }
 
-    public String translate(String content){
+    private String translate(String content){
+        content = content.replaceAll(this.SEP + "", this.REP + "");
+
         String result = "";
 
         int len = 0;
@@ -100,12 +104,41 @@ public class Pinyin {
             }
             if (tail.length() > 0){
                 String value = this.wordsDict.get(tail);
-                value = (value != null) ? value : tail;
+                value = (value != null) ? value : SEP + tail;
                 result = value + result;
                 tail = "";
             }
         }
 
+        if (result.charAt(0) == this.SEP){
+            result = result.substring(1, result.length());
+        }
+
+
+
+        return result;
+    }
+
+    public String translateWithSep(String content){
+        String result = this.translate(content);
+        result = result.replaceAll(this.REP + "", this.SEP + "");
+        return result;
+    }
+
+    public String[] translateInArray(String content){
+        String result = this.translate(content);
+        String[] resultArray = result.split(this.SEP + "");
+        for (int idx = 0; idx < resultArray.length; idx++){
+            String element = resultArray[idx];
+            resultArray[idx] = element.replace(this.REP, this.SEP);
+        }
+        return resultArray;
+    }
+
+    public String translateIntoPinyin(String content){
+        String result = this.translate(content);
+        result = result.replaceAll(SEP + "","");
+        result = result.replaceAll(this.REP + "", this.SEP + "");
         return result;
     }
 }

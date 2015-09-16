@@ -9,13 +9,16 @@ public class PinyinTest extends TestCase {
     public void testPinyin(){
         Pinyin py = new Pinyin();
 
-        String result1 = py.translate("我是中国人，我爱我的祖国。i am a chinese, i love china.");
-        assertEquals(result1, "wǒshìzhōngguórén，wǒàiwǒdezǔguó。i am a chinese, i love china.");
+        String[] result1 = py.translateInArray("我是中国人，我爱我的祖国。i am a chinese, i love china.");
+        String[] expect1 = {"wǒ","shì","zhōng","guó","rén","，","wǒ","ài","wǒ","de","zǔ","guó","。","i"," ","a","m"," ","a"," ","c","h","i","n","e","s","e",","," ","i"," ","l","o","v","e"," ","c","h","i","n","a","."};
+        for (int i = 0; i < result1.length; i++){
+            assertEquals(result1[i], expect1[i]);
+        }
 
-        String result2 = py.translate("わたしわ阿飞, and my English name is Rex Lee. 网名是独孤影！ ^_^。下面是一段多音分词歧义测试，这个人无伤无臭味。");
+        String result2 = py.translateIntoPinyin("わたしわ阿飞, and my English name is Rex Lee. 网名是独孤影！ ^_^。下面是一段多音分词歧义测试，这个人无伤无臭味。");
         assertEquals(result2, "わたしわāfēi, and my English name is Rex Lee. wǎngmíngshìdúgūyǐng！ ^_^。xiàmiànshìyīduànduōyīnfēncíqíyìcèshì，zhègèrénwúshāngwúchòuwèi。");
 
-        System.out.println(result1);
-        System.out.println(result2);
+        String result3 = py.translateWithSep("世界你好, hello world");
+        assertEquals(result3, "shì,jiè,nǐ,hǎo,,, ,h,e,l,l,o, ,w,o,r,l,d");
     }
 }
