@@ -15,10 +15,13 @@ public class PinyinTest extends TestCase {
             assertEquals(result1[i], expect1[i]);
         }
 
-        String result2 = py.translateIntoPinyin("わたしわ阿飞, and my English name is Rex Lee. 网名是独孤影！ ^_^。下面是一段多音分词歧义测试，这个人无伤无臭味。");
+        String result2 = py.translate("わたしわ阿飞, and my English name is Rex Lee. 网名是独孤影！ ^_^。下面是一段多音分词歧义测试，这个人无伤无臭味。");
         assertEquals(result2, "わたしわāfēi, and my English name is Rex Lee. wǎngmíngshìdúgūyǐng！ ^_^。xiàmiànshìyīduànduōyīnfēncíqíyìcèshì，zhègèrénwúshāngwúchòuwèi。");
 
         String result3 = py.translateWithSep("世界你好, hello world");
         assertEquals(result3, "shì,jiè,nǐ,hǎo,,, ,h,e,l,l,o, ,w,o,r,l,d");
+
+        String[] result4 = py.translateInArrayNoMark("わたしわ阿飞, and my English name is Rex Lee. 网名是独孤影！ ^_^。下面是一段多音分词歧义测试，这个人无伤无臭味。");
+        System.out.println(result4);
     }
 }
