@@ -232,4 +232,18 @@ public class Pinyin {
         return resultArray;
     }
 
+    /**
+     * 翻译为拼音首字母
+     * @param content
+     * @return
+     */
+    public String translateFirstChar(String content){
+        String[] result = this.translateInArray(content);
+        String chars = "";
+        for(String element : result){
+            chars = chars + element.charAt(0);
+        }
+        return chars;
+    }
+
 }

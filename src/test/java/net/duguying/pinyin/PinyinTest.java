@@ -22,6 +22,17 @@ public class PinyinTest extends TestCase {
         assertEquals(result3, "shì,jiè,nǐ,hǎo,,, ,h,e,l,l,o, ,w,o,r,l,d");
 
         String[] result4 = py.translateInArrayNoMark("わたしわ阿飞, and my English name is Rex Lee. 网名是独孤影！ ^_^。下面是一段多音分词歧义测试，这个人无伤无臭味。");
-        System.out.println(result4);
+        this.dumpStringArray(result4);
+
+        String result5 = py.translateFirstChar("わたしわ阿飞, and my English name is Rex Lee. 网名是独孤影！ ^_^。下面是一段多音分词歧义测试，这个人无伤无臭味。");
+        System.out.println(result5);
+    }
+
+    private void dumpStringArray(String[] array){
+        System.out.print("[");
+        for (String element : array){
+            System.out.print(element + ",");
+        }
+        System.out.print("]\n");
     }
 }
