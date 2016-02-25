@@ -11,6 +11,16 @@
 mvn package
 ```
 
+## maven
+
+```xml
+<dependency>
+    <groupId>net.duguying.pinyin</groupId>
+    <artifactId>pinyin</artifactId>
+    <version>0.0.0</version>
+</dependency>
+```
+
 ## usage
 
 ```java
