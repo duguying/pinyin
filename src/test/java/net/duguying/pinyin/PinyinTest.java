@@ -18,8 +18,11 @@ public class PinyinTest extends TestCase {
         String result2 = py.translate("わたしわ阿飞, and my English name is Rex Lee. 网名是独孤影！ ^_^。下面是一段多音分词歧义测试，这个人无伤无臭味。");
         assertEquals(result2, "わたしわāfēi, and my English name is Rex Lee. wǎngmíngshìdúgūyǐng！ ^_^。xiàmiànshìyīduànduōyīnfēncíqíyìcèshì，zhègèrénwúshāngwúchòuwèi。");
 
-        String result3 = py.translateWithSep("世界你好, hello world");
+        String result3 = py.translateWithSep("世界你好, hello world", ",");
         assertEquals(result3, "shì,jiè,nǐ,hǎo,,, ,h,e,l,l,o, ,w,o,r,l,d");
+
+        String result3_1 = py.translateWithSep("世界你好, hello world");
+        assertEquals(result3_1, "shì,jiè,nǐ,hǎo,,, ,h,e,l,l,o, ,w,o,r,l,d");
 
         String[] result4 = py.translateInArrayNoMark("わたしわ阿飞, and my English name is Rex Lee. 网名是独孤影！ ^_^。下面是一段多音分词歧义测试，这个人无伤无臭味。");
         this.dumpStringArray(result4);

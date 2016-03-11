@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 将汉字翻译为拼音, 通过『中文分词逆向最大匹配法』匹配多音词
  * Created by rex on 2015/4/27.
  */
 public class Pinyin {
@@ -121,12 +122,24 @@ public class Pinyin {
 
     /**
      * 拼音，带分隔符
-     * @param content
+     * @param content 内容
+     * @param sep 分隔符
+     * @return
+     */
+    public String translateWithSep(String content, String sep){
+        String result = this.translatePinyin(content);
+        result = result.replaceAll(this.REP + "", sep);
+        return result;
+    }
+
+    /**
+     * 拼音，带分隔符,默认逗号
+     * @param content 内容
      * @return
      */
     public String translateWithSep(String content){
         String result = this.translatePinyin(content);
-        result = result.replaceAll(this.REP + "", this.SEP + "");
+        result = result.replaceAll(this.REP + "", ",");
         return result;
     }
 
@@ -146,8 +159,8 @@ public class Pinyin {
     }
 
     /**
-     * 拼音
-     * @param content
+     * 将汉字翻译成拼音
+     * @param content 内容
      * @return
      */
     public String translate(String content){
@@ -198,11 +211,22 @@ public class Pinyin {
 
     /**
      * 不带音调拼音，带分隔符
+     * @param content 内容
+     * @param sep 分割符
+     * @return
+     */
+    public String translateWithSepNoMark(String content, String sep){
+        String result = this.translateWithSep(content, sep);
+        return this.unMark(result);
+    }
+
+    /**
+     * 不带音调拼音，带分隔符, 默认逗号
      * @param content
      * @return
      */
     public String translateWithSepNoMark(String content){
-        String result = this.translateWithSep(content);
+        String result = this.translateWithSep(content, ",");
         return this.unMark(result);
     }
 
