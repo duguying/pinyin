@@ -7,7 +7,12 @@ import junit.framework.TestCase;
  */
 public class PinyinTest extends TestCase {
     public void testPinyin(){
-        Pinyin py = new Pinyin();
+        Pinyin py = null;
+        try {
+            py = new Pinyin();
+        } catch (PinyinException e) {
+            e.printStackTrace();
+        }
 
         String[] result1 = py.translateInArray("我是中国人，我爱我的祖国。i am a chinese, i love china.");
         String[] expect1 = {"wǒ","shì","zhōng","guó","rén","，","wǒ","ài","wǒ","de","zǔ","guó","。","i"," ","a","m"," ","a"," ","c","h","i","n","e","s","e",","," ","i"," ","l","o","v","e"," ","c","h","i","n","a","."};
