@@ -69,7 +69,8 @@ public class Pinyin {
     }
 
     private String translatePinyin(String content){
-        content = content.replaceAll(this.SEP + "", this.REP + "");
+        String cont = content;
+        cont = cont.replaceAll(this.SEP + "", this.REP + "");
 
         String result = "";
 
@@ -78,7 +79,7 @@ public class Pinyin {
         int tailEndIdx = 0;
         int leftEndIdx = 0;
         String tail = "";
-        String left = content;
+        String left = cont;
 
         for (;left.length() > 0;) {
             // outer
@@ -88,8 +89,8 @@ public class Pinyin {
                 tailStartIdx = len - cutLen;
                 tailEndIdx = len;
                 leftEndIdx = tailStartIdx;
-                tail = content.substring(tailStartIdx, tailEndIdx);
-                left = content.substring(0, leftEndIdx);
+                tail = cont.substring(tailStartIdx, tailEndIdx);
+                left = cont.substring(0, leftEndIdx);
             }
 
             for (; tail.length() > 1; ) {
@@ -172,10 +173,12 @@ public class Pinyin {
 
     /**
      * 除去音调
-     * @param content
+     * @param contents
      * @return
      */
-    private String unMark(String content){
+    private String unMark(String contents){
+        String content = contents;
+
         content = content.replaceAll("ā","a");
         content = content.replaceAll("á","a");
         content = content.replaceAll("ǎ","a");
