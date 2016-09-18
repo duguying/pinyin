@@ -18,11 +18,11 @@ public class Pinyin {
     private char SEP = ',';
     private char REP = 7;
 
-    public Pinyin(){
+    public Pinyin() throws PinyinException {
         try {
             this.loadContent();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new PinyinException("load words library failed.");
         }
 
         this.parseChars();
