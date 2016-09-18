@@ -17,7 +17,7 @@ mvn package
 <dependency>
     <groupId>net.duguying.pinyin</groupId>
     <artifactId>pinyin</artifactId>
-    <version>0.0.0</version>
+    <version>0.0.1</version>
 </dependency>
 ```
 
